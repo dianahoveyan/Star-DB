@@ -5,24 +5,9 @@ import Spinner from "../spinner/spinner";
 import './item-list.css'
 
 
-export default class ItemList extends Component {
+class ItemList extends Component {
 
-    state = {
-        itemList: null
-    }
 
-    componentDidMount(){
-
-        const { getData } = this.props;
-
-       getData()
-        .then((itemList) => {
-            this.setState({
-                itemList
-            })
-        })
-
-    }
 
     renderItems(arr) {
         return arr.map((item) => {
@@ -40,11 +25,8 @@ export default class ItemList extends Component {
     }
 
     render() {
-        const { itemList } = this.state;
- 
-        if(!itemList) {
-            return <Spinner/>
-        }
+        const {data} = this.props
+
 
         const items = this.renderItems(itemList)
 
@@ -56,3 +38,40 @@ export default class ItemList extends Component {
         )
     }
 }
+
+
+const withData = (View) => {
+    return class extends Component{
+
+
+        state = {
+            data: null
+        }
+    
+        componentDidMount(){
+    
+            const { getData } = this.props;
+    
+           getData()
+            .then((data) => {
+                this.setState({
+                    data
+                })
+            })
+    
+        }
+
+
+        render() {
+
+            const { data} = this.state;
+ 
+            if(!data) {
+                return <Spinner/>
+            }
+            return <View {...this.props} data={data}/>
+        }
+    };
+};
+
+export default withData(ItemList)
