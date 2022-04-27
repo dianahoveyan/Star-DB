@@ -1,5 +1,5 @@
 const API_URL = "https://swapi.dev/api"
-const IMAGE_BASE = "https://starwars-visualguide.com/assets/img/"
+const IMAGE_BASE = "https://starwars-visualguide.com/assets/img"
 
 export default class SwapiService {
 
@@ -46,15 +46,15 @@ export default class SwapiService {
   } 
  
  getPersonImage = ({id}) => {
-     return `${this.IMAGE_BASE}characters/${id}.jpg`
+     return `${this.IMAGE_BASE}/characters/${id}.jpg`
  }
 
  getStarshipImage = ({id}) => {
-    return `${this.IMAGE_BASE}starships/${id}.jpg`
+    return `${this.IMAGE_BASE}/starships/${id}.jpg`
 }
 
 getPlanetImage = ({id}) => {
-    return `${this.IMAGE_BASE}planets/${id}.jpg`
+    return `${this.IMAGE_BASE}/planets/${id}.jpg`
 }
 
 _extractID = (item) => {
