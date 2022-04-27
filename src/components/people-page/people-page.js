@@ -3,41 +3,14 @@ import SwapiService from "../../services/services";
 import ErrorIndicator from "../error-indicator/error-indicator";
 import ItemList from "../item-list/item-list";
 import PersonDetails from "../item-details/item-details";
+import Row from "../row/row";
+import ErrorBoundry from "../error-boundry/error-boundry";
 
 import './people-page.css';
 
-class ErrorBoundry extends Component{
 
-    state = {
-        hasError: false
-    }
-    componentDidCatch(){
-        
-        this.setState({
-            hasError: true
-        })
-    }
 
-    render(){
-        if(this.state.hasError){
-            return <ErrorIndicator/>
-        }
-        return this.props.children;
-    }
-}
 
-const Row = ({left, right}) => {
-    return (
-     <div className="row mb2">
-        <div className="col-md-6">
-           {left}
-        </div>
-        <div className="col-md-6">
-           {right}
-        </div>
-     </div>        
-    )
-}
 
 export default class PeoplePage extends Component {
 
