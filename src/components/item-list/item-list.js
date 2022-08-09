@@ -1,77 +1,42 @@
 import React, {Component} from "react";
-import SwapiService from "../../services/services";
-import Spinner from "../spinner/spinner";
-
+import PropTypes from "prop-types";
 import './item-list.css'
 
 
-class ItemList extends Component {
+const ItemList = (props) =>  {
 
+    const { data, onItemSelected, children: renderLabel } = props
 
+    const items = data.map((item)=> {
 
-    renderItems(arr) {
-        return arr.map((item) => {
-            const {id} = item
+      const {id} = item
+      const label = renderLabel(item);
 
-            const label = this.props.children(item);
-            return(
-                <li className="list-group-item"
-                    key={id}
-                    onClick = {() => this.props.onItemSelected(id)}>
-                    {label}
-                </li>
-            )
-        })
-    }
+      return(
+          <li className="list-group-item"
+              key={id}
+              onClick = {() => onItemSelected(id)}>
+              {label}
+          </li>
+      );
+    });
 
-    render() {
-        const {data} = this.props
-
-
-        const items = this.renderItems(itemList)
-
-
-        return(
-            <ul className="item-list list-group">
-                {items}
-            </ul>
-        )
-    }
-}
-
-
-const withData = (View) => {
-    return class extends Component{
-
-
-        state = {
-            data: null
-        }
-    
-        componentDidMount(){
-    
-            const { getData } = this.props;
-    
-           getData()
-            .then((data) => {
-                this.setState({
-                    data
-                })
-            })
-    
-        }
-
-
-        render() {
-
-            const { data} = this.state;
- 
-            if(!data) {
-                return <Spinner/>
-            }
-            return <View {...this.props} data={data}/>
-        }
-    };
+    return(
+        <ul className="item-list list-group">
+            {items}
+        </ul>
+      );
 };
 
-export default withData(ItemList)
+ItemList.defaultProps = {
+    onItemSelected: () => {}
+}
+
+ItemList.propTypes = {
+    onItemSelected: PropTypes.func,
+    data: PropTypes.arrayOf(PropTypes.object).isRequired,
+    children: PropTypes.func.isRequired
+}
+
+export default ItemList;
+

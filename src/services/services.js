@@ -7,7 +7,7 @@ export default class SwapiService {
         const res = await fetch(API_URL + url );
 
     if(!res.ok){
-        throw new Error (`Could not fetch ${url}` + 
+        throw new Error (`Could not fetch ${url}` +
         `, received ${res.status}`)
     }
     return await res.json();
@@ -26,9 +26,9 @@ export default class SwapiService {
 
  getAllPlanets = async () =>{
     const res = await this.getResource(`/planets/`)
-    return res.results.map(this._transformPlanet); 
+    return res.results.map(this._transformPlanet);
   }
-  
+
  getPlanet = async (id) => {
     const planet = await this.getResource(`/planets/${id}/`);
       return this._transformPlanet(planet)
@@ -39,12 +39,12 @@ export default class SwapiService {
     const res = await this.getResource(`/starships/`)
     return res.results.map(this._transformStarship)
 }
-  
+
  getStarship = async (id) => {
     const starship = await this.getResource(`/starships/${id}/`)
       return this._transformStarship
-  } 
- 
+  }
+
  getPersonImage = ({id}) => {
      return `${IMAGE_BASE}/characters/${id}.jpg`
  }
@@ -64,7 +64,7 @@ _extractID = (item) => {
 
 
 _transformPlanet = (planet) => {
-    
+
     return{
         id: this._extractID(planet),
         name: planet.name,
@@ -101,7 +101,7 @@ _transformPerson = (person) => {
 }
 
 
-}  
+}
 
 
 const swapi = new SwapiService();

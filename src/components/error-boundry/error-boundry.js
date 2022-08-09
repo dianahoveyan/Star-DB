@@ -8,12 +8,12 @@ export default class ErrorBoundry extends Component {
     hasError: false
   };
 
-  componentDidCatch() {
+  componentDidCatch(err) {
+    console.log(err, 'ttttttt');
     this.setState({
       hasError: true
     });
   }
-
   render() {
 
     if (this.state.hasError) {
